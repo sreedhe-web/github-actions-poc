@@ -1,10 +1,23 @@
-name: Hello GitHub Actions
+name: Java Compile & Run
 
 on: [push]
 
 jobs:
-  say-hello:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Say Hello
-        run: echo "👋 Hello from GitHub Actions!"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Compile Hello.java
+      run: javac Hello.java
+
+    - name: Run Hello.java
+      run: java Hello
